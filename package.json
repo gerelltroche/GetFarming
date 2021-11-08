@@ -17,8 +17,14 @@
   },
   "homepage": "https://github.com/gerelltroche/GetFarming#readme",
   "devDependencies": {
+    "@types/chai": "^4.2.22",
+    "@types/mocha": "^9.0.0",
     "@types/node": "^16.11.6",
+    "chai": "^4.3.4",
+    "jest-mock-axios": "^4.4.1",
+    "mocha": "^9.1.3",
     "nodemon": "^2.0.14",
+    "nyc": "^15.1.0",
     "ts-node": "^10.4.0",
     "typescript": "^4.4.4"
   },

@@ -1,5 +1,10 @@
-import farmingLevel from "./farmingLevel";
+import { getUser } from "./getUser";
+import { optimalFarmingInventory } from "./optimalFarmingInventory";
 
-(async function main() {
-    console.log(await farmingLevel('br4v3'))
+(async function () {
+    const user = await getUser('Br4v3')
+    const returnedInv = optimalFarmingInventory(user);
+    console.log(returnedInv);
+    return returnedInv;
+
 })();
