@@ -1,5 +1,5 @@
-import axios, {AxiosError, AxiosResponse} from "axios";
-import {Skill, User} from './interfaces/User.interface';
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { Skill, User } from './interfaces/index.interface';
 
 const URL = 'http://services.runescape.com/m=hiscore_oldschool/index_lite.ws?player=';
 

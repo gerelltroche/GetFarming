@@ -1,25 +1,13 @@
-import { User } from "./interfaces/User.interface";
-
-interface Item {
-    type: 'seed' | 'farmingTool' | 'teleport',
-    name: string,
-    stackable: boolean,
-    amount: number
-}
-
-interface Inventory {
-    full: boolean,
-    items: Array<Item>
-}
+import {User, Inventory, Item, SkillTypes} from "./interfaces/index.interface";
+import { validateUser } from "./validateUser";
+import { getOptimalSeed } from "./getOptimalSeed";
 
 function optimalFarmingInventory(User: User): Inventory | any {
-    const farmingLevel = User.skills.Farming?.level;
+    const farmingLevel = User.skills.Farming?.level ?? 0;
+    const [userIsValid, userErrorMsg] = validateUser(User, 'Farming' as keyof SkillTypes);
 
-    if (!User) {
-        return Error('Must provide a User');
-    }
-    if (!farmingLevel) {
-        return Error('User must have a farming level');
+    if (userErrorMsg) {
+        return Error(userErrorMsg);
     }
 
     const inventory: Inventory = {
@@ -29,7 +17,7 @@ function optimalFarmingInventory(User: User): Inventory | any {
 
     // getting kinda long, need to isolate more.
 
-    const seed: Item = getOptimalSeed(farmingLevel);
+    const seed: Item = getOptimalSeed(farmingLevel, 'allotment');
     const fertilizer: Item = getOptimalFertilizer(User);
 
     // add these to inventory

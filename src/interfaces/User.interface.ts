@@ -1,8 +1,4 @@
-export interface Skill {
-    rank: number,
-    level: number,
-    xp: number
-}
+import { Skill } from './Skill.interface';
 
 export interface User {
     name: string,
