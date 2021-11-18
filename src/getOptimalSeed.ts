@@ -10,6 +10,8 @@ export function getOptimalSeed(farmingLevel: number, patchType: PatchTypes): Ite
     };
 
     if (patchType === 'allotment') {
+        optimalSeed.amount = 3;
+        optimalSeed.stackable = true;
         optimalSeed.name = getOptimalAllotment(farmingLevel);
         return optimalSeed;
     }

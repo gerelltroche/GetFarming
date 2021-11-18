@@ -1,6 +1,7 @@
-import {User, Inventory, Item, SkillTypes} from "./interfaces/index.interface";
+import { User, Inventory, Item, SkillTypes } from "./interfaces/index.interface";
 import { validateUser } from "./validateUser";
 import { getOptimalSeed } from "./getOptimalSeed";
+import { getOptimalFertilizer } from "./getOptimalFertilizer";
 
 function optimalFarmingInventory(User: User): Inventory | any {
     const farmingLevel = User.skills.Farming?.level ?? 0;
@@ -14,17 +15,15 @@ function optimalFarmingInventory(User: User): Inventory | any {
         full: false,
         items: []
     };
+    // I dont like that seed can be of type Item or null
+    const seed: Item | null = getOptimalSeed(farmingLevel, 'allotment');
+    const fertilizer: Item = getOptimalFertilizer(); // only returns regular fertilizer
 
-    // getting kinda long, need to isolate more.
+    addItemToInventory(seed);
+    addItemToInventory(fertilizer);
 
-    const seed: Item = getOptimalSeed(farmingLevel, 'allotment');
-    const fertilizer: Item = getOptimalFertilizer(User);
-
-    // add these to inventory
-
-    const tools: Array
-
-    function addItemToInventory(Item: Item) {
+    function addItemToInventory(Item: Item | null) {
+        if (!Item) return;
         if (inventory.full) {
             console.log(`Cannot add ${Item} to inventory as it is full`);
             return;
