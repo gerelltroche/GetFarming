@@ -1,7 +1,7 @@
 import { Skill } from './Skill.interface';
 
 export interface User {
-    name: string,
+    name: string;
     skills: {
         Overall: Skill | undefined,
         Attack: Skill | undefined,
@@ -27,5 +27,5 @@ export interface User {
         Runecraft: Skill | undefined,
         Hunter: Skill | undefined,
         Construction: Skill | undefined
-    }
+    };
 }
