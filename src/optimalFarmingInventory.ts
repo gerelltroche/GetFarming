@@ -13,28 +13,33 @@ function optimalFarmingInventory(User: User): Inventory | any {
 
     const inventory: Inventory = {
         full: false,
-        items: []
+        items: [],
+        addItem(Item: Item): Inventory {
+            if (!Item) {
+                return this;
+            }
+            if (this.full) {
+                console.log(`Cannot add ${Item} to inventory as it is full`);
+                return this;
+            }
+
+            this.items.push(Item);
+
+            if (this.items.length >= 28) {
+                this.full = true;
+            }
+
+            return this
+        }
     };
     // I dont like that seed can be of type Item or null
     const seed: Item | null = getOptimalSeed(farmingLevel, 'allotment');
     const fertilizer: Item = getOptimalFertilizer(); // only returns regular fertilizer
 
-    addItemToInventory(seed);
-    addItemToInventory(fertilizer);
-
-    function addItemToInventory(Item: Item | null) {
-        if (!Item) return;
-        if (inventory.full) {
-            console.log(`Cannot add ${Item} to inventory as it is full`);
-            return;
-        }
-
-        inventory.items.push(Item);
-
-        if (inventory.items.length >= 28) {
-            inventory.full = true;
-        }
+    if (seed) {
+        inventory.addItem(seed);
     }
+
 
     return inventory;
 }
