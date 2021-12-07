@@ -1,19 +1,21 @@
 import { User, SkillTypes } from "./interfaces/index.interface";
 
-export function validateUser(User: User, skill: 'any' | keyof SkillTypes = 'any'): [boolean, string | null] {
+function validateUser(User: User, skill: 'any' | keyof SkillTypes = 'any'): boolean {
     if (!User) {
-        return [false, 'User must be provided.'];
+        return false
     }
 
     if (!User.name) {
-        return [false, 'User provided has no name']
+        return false
     }
 
     if (skill !== 'any') {
         // check all skills
-        return [true, null]
+        return true
     } else {
         // check 1 skill
-        return [true, null]
+        return true
     }
 }
+
+export { validateUser };
