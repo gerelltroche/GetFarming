@@ -3,6 +3,7 @@ import { validateUser } from "./validateUser";
 import { getOptimalSeed } from "./getOptimalSeed";
 import { getOptimalFertilizer } from "./getOptimalFertilizer";
 import { inventory } from "./inventory";
+import {getTools} from "./getTools";
 
 function countAmountOfPatches(farmingLevel: number, type: PatchTypes,  unlocks: any): number {
     const patchLookup = {
@@ -22,12 +23,13 @@ function countAmountOfPatches(farmingLevel: number, type: PatchTypes,  unlocks: 
 function optimalFarmingInventory(User: User): Inventory | any {
     const farmingLevel = User.skills.Farming?.level ?? 0;
     const userIsValid = validateUser(User, 'Farming' as keyof SkillTypes);
+    const patchType = 'allotment';
 
     if (!userIsValid) {
         return Error('User is not valid');
     }
 
-    const optimalSeed = getOptimalSeed(farmingLevel, 'allotment');
+    const optimalSeed = getOptimalSeed(farmingLevel, patchType);
     if (!optimalSeed) {
         return Error('No optimal seed found');
     }
@@ -42,6 +44,11 @@ function optimalFarmingInventory(User: User): Inventory | any {
     for (let i = 0; i < amountOfPatches; i++) {
         inventory.addItem(optimalSeed);
         inventory.addItem(optimalFertilizer);
+    }
+
+    const tools = getTools(patchType)
+    for (const tool of tools) {
+        inventory.addItem(tool);
     }
 
     return inventory;
