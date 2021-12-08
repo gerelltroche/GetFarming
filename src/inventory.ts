@@ -33,7 +33,8 @@ const inventory: Inventory = {
 
         return this
     },
-    removeItem(item: Item): Inventory {
+    removeItem(givenItem: Item): Inventory {
+        const item = {...givenItem};
         if (!item) {
             return this;
         }
@@ -42,17 +43,22 @@ const inventory: Inventory = {
             return this;
         }
 
-        const index = this.items.indexOf(item);
-        if (index > -1) {
-            this.items.splice(index, 1);
+        if (this.items.filter((existingItem) => existingItem.name === item.name) && item.stackable) {
+            const existingItem = this.items.find(existingItem => existingItem.name === item.name);
+            if (existingItem) {
+                existingItem.amount -= item.amount;
+            }
+            return this;
         }
+
+        this.items.splice(this.items.indexOf(item), 1);
 
         if (this.items.length < 28) {
             this.full = false;
         }
 
         return this
-    }
+    },
 };
 
 export { inventory };
