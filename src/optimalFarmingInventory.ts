@@ -1,8 +1,23 @@
-import { User, Inventory, Item, SkillTypes } from "./interfaces/index.interface";
+import {User, Inventory, SkillTypes, PatchTypes} from "./interfaces/index.interface";
 import { validateUser } from "./validateUser";
 import { getOptimalSeed } from "./getOptimalSeed";
 import { getOptimalFertilizer } from "./getOptimalFertilizer";
 import { inventory } from "./inventory";
+
+function countAmountOfPatches(farmingLevel: number, type: PatchTypes,  unlocks: any): number {
+    const patchLookup = {
+        'allotment': 3,
+        'flower': 3,
+        'herb': 3,
+        'hops': 3,
+        'bush': 3,
+        'tree': 3,
+        'fruit tree': 3,
+        'spirit tree': 3,
+        'special': 3
+    };
+    return patchLookup[type];
+}
 
 function optimalFarmingInventory(User: User): Inventory | any {
     const farmingLevel = User.skills.Farming?.level ?? 0;
@@ -12,12 +27,21 @@ function optimalFarmingInventory(User: User): Inventory | any {
         return Error('User is not valid');
     }
 
-    // I dont like that seed can be of type Item or null
-    const seed: Item | null = getOptimalSeed(farmingLevel, 'allotment');
-    const fertilizer: Item = getOptimalFertilizer(); // only returns regular fertilizer
+    const optimalSeed = getOptimalSeed(farmingLevel, 'allotment');
+    if (!optimalSeed) {
+        return Error('No optimal seed found');
+    }
 
-    if (seed) {
-        inventory.addItem(seed);
+    const optimalFertilizer = getOptimalFertilizer(); // only returns regular fertilizer
+    if (!optimalFertilizer) {
+        return Error('No optimal fertilizer found');
+    }
+
+    const amountOfPatches = countAmountOfPatches(farmingLevel, 'allotment', 'blah');
+
+    for (let i = 0; i < amountOfPatches; i++) {
+        inventory.addItem(optimalSeed);
+        inventory.addItem(optimalFertilizer);
     }
 
     return inventory;
