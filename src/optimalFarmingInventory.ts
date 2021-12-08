@@ -1,9 +1,9 @@
-import {User, Inventory, SkillTypes, PatchTypes} from "./interfaces/index.interface";
+import { User, Inventory, SkillTypes, PatchTypes } from "./interfaces/index.interface";
 import { validateUser } from "./validateUser";
 import { getOptimalSeed } from "./getOptimalSeed";
 import { getOptimalFertilizer } from "./getOptimalFertilizer";
 import { inventory } from "./inventory";
-import {getTools} from "./getTools";
+import { getTools } from "./getTools";
 
 function countAmountOfPatches(farmingLevel: number, type: PatchTypes,  unlocks: any): number {
     const patchLookup = {
