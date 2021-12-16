@@ -19,6 +19,7 @@ export function getOptimalSeed(farmingLevel: number, patchType: PatchTypes): Ite
     if (patchType === 'flower') {
         const optimalFlower = getOptimalFlower(farmingLevel);
         if (!optimalFlower) return null;
+        optimalSeed.stackable = true;
         optimalSeed.name = optimalFlower;
         return optimalSeed;
     }
@@ -26,6 +27,7 @@ export function getOptimalSeed(farmingLevel: number, patchType: PatchTypes): Ite
     if (patchType === 'herb') {
         const optimalHerb = getOptimalHerb(farmingLevel);
         if (!optimalHerb) return null;
+        optimalSeed.stackable = true;
         optimalSeed.name = optimalHerb;
         return optimalSeed;
     }

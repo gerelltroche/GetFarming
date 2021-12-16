@@ -20,10 +20,9 @@ function countAmountOfPatches(farmingLevel: number, type: PatchTypes,  unlocks: 
     return patchLookup[type];
 }
 
-function optimalFarmingInventory(User: User): Inventory | any {
-    const farmingLevel = User.skills.Farming?.level ?? 0;
+function optimalFarmingInventory(User: User, patchType: PatchTypes): Inventory | any {
+    const farmingLevel = User.skills.Farming?.level ?? 1;
     const userIsValid = validateUser(User, 'Farming' as keyof SkillTypes);
-    const patchType = 'allotment';
 
     if (!userIsValid) {
         return Error('User is not valid');
